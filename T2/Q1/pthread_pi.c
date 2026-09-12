@@ -2,12 +2,23 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <time.h>
+#include <sys/time.h>
+
+
 
 typedef struct
 {
     long long points;
     long long inside;
+    unsigned int seed;
 } ThreadData;
+
+double get_time()
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return tv.tv_sec + tv.tv_usec / 1000000.0;
+}
 
 void *calculate(void *arg)
 {
@@ -17,8 +28,8 @@ void *calculate(void *arg)
 
     for (long long i = 0; i < data->points; i++)
     {
-        double x = (double)rand() / RAND_MAX;
-        double y = (double)rand() / RAND_MAX;
+        double x = (double)rand_r(&data->seed) / RAND_MAX;
+        double y = (double)rand_r(&data->seed) / RAND_MAX;
 
         if (x * x + y * y <= 1.0)
         {
@@ -45,11 +56,12 @@ int main()
 
     long long points_per_thread = n / num_threads;
 
-    clock_t start = clock();
+    double start = get_time();
 
     for (int i = 0; i < num_threads; i++)
     {
         data[i].points = points_per_thread;
+        data[i].seed = time(NULL) + i;
 
         if (i == num_threads - 1)
         {
@@ -73,12 +85,11 @@ int main()
         total_inside += data[i].inside;
     }
 
-    clock_t end = clock();
+    double end = get_time();
 
     double pi = 4.0 * total_inside / n;
 
-    double execution_time =
-        (double)(end - start) / CLOCKS_PER_SEC;
+   double execution_time = end - start;
 
     printf("\nNumber of points = %lld\n", n);
     printf("Number of threads = %d\n", num_threads);

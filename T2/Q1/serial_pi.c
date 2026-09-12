@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
+#include <sys/time.h>
+
+double get_time()
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return tv.tv_sec + tv.tv_usec / 1000000.0;
+}
 
 int main()
 {
@@ -12,7 +21,7 @@ int main()
 
     srand(time(NULL));
 
-    clock_t start = clock();
+    double start = get_time();
 
     for (long long i = 0; i < n; i++)
     {
@@ -25,16 +34,17 @@ int main()
         }
     }
 
-    clock_t end = clock();
+    double end = get_time();
 
     double pi = 4.0 * inside / n;
-    double execution_time =
-        (double)(end - start) / CLOCKS_PER_SEC;
+    double error = fabs(pi - 3.141592653589793);
+    double execution_time = end - start;
 
     printf("\nNumber of points = %lld\n", n);
     printf("Points inside circle = %lld\n", inside);
-    printf("Estimated Pi = %lf\n", pi);
-    printf("Execution time = %lf seconds\n", execution_time);
+    printf("Estimated Pi = %.12f\n", pi);
+    printf("Error = %.12f\n", error);
+    printf("Execution time = %.6f seconds\n", execution_time);
 
     return 0;
 }
