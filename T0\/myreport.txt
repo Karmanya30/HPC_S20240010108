@@ -3,10 +3,10 @@ Flat profile:
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls  ms/call  ms/call  name    
- 75.93      0.41     0.41        1   410.00   529.87  bubbleSort
- 22.22      0.53     0.12 81472997     0.00     0.00  swap
-  1.85      0.54     0.01    18190     0.00     0.00  partition
-  0.00      0.54     0.00        1     0.00    10.13  quickSort
+ 60.42      0.29     0.29        1   290.00   479.65  bubbleSort
+ 39.58      0.48     0.19 84595270     0.00     0.00  swap
+  0.00      0.48     0.00    12125     0.00     0.00  partition
+  0.00      0.48     0.00        1     0.00     0.35  quickSort
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -44,31 +44,31 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 4 byte(s) for 1.85% of 0.54 seconds
+granularity: each sample hit covers 4 byte(s) for 2.08% of 0.48 seconds
 
 index % time    self  children    called     name
                                                  <spontaneous>
-[1]    100.0    0.00    0.54                 main [1]
-                0.41    0.12       1/1           bubbleSort [2]
-                0.00    0.01       1/1           quickSort [5]
+[1]    100.0    0.00    0.48                 main [1]
+                0.29    0.19       1/1           bubbleSort [2]
+                0.00    0.00       1/1           quickSort [5]
 -----------------------------------------------
-                0.41    0.12       1/1           main [1]
-[2]     98.1    0.41    0.12       1         bubbleSort [2]
-                0.12    0.00 81387108/81472997     swap [3]
+                0.29    0.19       1/1           main [1]
+[2]     99.9    0.29    0.19       1         bubbleSort [2]
+                0.19    0.00 84437288/84595270     swap [3]
 -----------------------------------------------
-                0.00    0.00   85889/81472997     partition [4]
-                0.12    0.00 81387108/81472997     bubbleSort [2]
-[3]     22.2    0.12    0.00 81472997         swap [3]
+                0.00    0.00  157982/84595270     partition [4]
+                0.19    0.00 84437288/84595270     bubbleSort [2]
+[3]     39.6    0.19    0.00 84595270         swap [3]
 -----------------------------------------------
-                0.01    0.00   18190/18190       quickSort [5]
-[4]      1.9    0.01    0.00   18190         partition [4]
-                0.00    0.00   85889/81472997     swap [3]
+                0.00    0.00   12125/12125       quickSort [5]
+[4]      0.1    0.00    0.00   12125         partition [4]
+                0.00    0.00  157982/84595270     swap [3]
 -----------------------------------------------
-                               36380             quickSort [5]
-                0.00    0.01       1/1           main [1]
-[5]      1.9    0.00    0.01       1+36380   quickSort [5]
-                0.01    0.00   18190/18190       partition [4]
-                               36380             quickSort [5]
+                               24250             quickSort [5]
+                0.00    0.00       1/1           main [1]
+[5]      0.1    0.00    0.00       1+24250   quickSort [5]
+                0.00    0.00   12125/12125       partition [4]
+                               24250             quickSort [5]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
